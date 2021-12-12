@@ -7,7 +7,7 @@ int main(void)
 	FILE *fp = fopen("input2.txt", "r");
 	FILE *op = fopen("/tmp/eee.txt", "w");
 
-	int horizontal = 0, depth = 0;
+	int horizontal = 0, depth = 0, aim = 0;
 	char ch;
 	char line[80];
 	size_t idx = 0;
@@ -24,18 +24,17 @@ int main(void)
 			
 			if((res = strstr(line, "forward")))
 			{
-				horizontal += *(res + sizeof("forward")) - 48;
-				printf("Adding %i to horizontal %i\n", *(res + sizeof("forward")) - 48, horizontal);
+				int val = *(res + sizeof("forward")) - 48;
+				horizontal += val;
+				depth += aim * val;
 			}
 			else if((res = strstr(line, "down")))
 			{
-				depth += *(res + sizeof("down")) - 48;
-				printf("Adding %i to depth %i\n", *(res + sizeof("down")) - 48, depth);
+				aim += *(res + sizeof("down")) - 48;
 			}
 			else if((res = strstr(line, "up")))
 			{
-				depth -= *(res + sizeof("up")) - 48;
-				printf("Removing %i from depth %i\n", *(res + sizeof("up")) - 48, depth);
+				aim -= *(res + sizeof("up")) - 48;
 			}
 
 			idx = 0;
